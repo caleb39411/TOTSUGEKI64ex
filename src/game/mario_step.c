@@ -323,6 +323,11 @@ s32 perform_ground_step(struct MarioState *m) {
     s32 i;
     u32 stepResult;
     Vec3f intendedPos;
+    m->totsuUnlocked = 1.0f;
+
+    if (!(gPlayer1Controller->buttonDown & L_TRIG)) {
+        m->canTotsu = 1.0f;
+    }
 
     for (i = 0; i < 4; i++) {
         intendedPos[0] = m->pos[0] + m->floor->normal.y * (m->vel[0] / 4.0f);
@@ -535,6 +540,7 @@ u32 should_strengthen_gravity_for_jump_ascent(struct MarioState *m) {
 void apply_gravity(struct MarioState *m) {
     if (m->action == ACT_TWIRLING && m->vel[1] < 0.0f) {
         apply_twirl_gravity(m);
+    } else if (m->action == ACT_TOTSUGEKI){
     } else if (m->action == ACT_SHOT_FROM_CANNON) {
         m->vel[1] -= 1.0f;
         if (m->vel[1] < -75.0f) {

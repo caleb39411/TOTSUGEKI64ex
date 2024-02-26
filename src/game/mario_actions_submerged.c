@@ -16,6 +16,7 @@
 #include "behavior_data.h"
 #include "level_table.h"
 #include "thread6.h"
+#include "game_init.h"
 
 #define MIN_SWIM_STRENGTH 160
 #define MIN_SWIM_SPEED 16.0f
@@ -68,6 +69,9 @@ static f32 get_buoyancy(struct MarioState *m) {
 }
 
 static u32 perform_water_full_step(struct MarioState *m, Vec3f nextPos) {
+    if (!(gPlayer1Controller->buttonDown & L_TRIG)) {
+        m->canTotsu = 1.0f;
+    }
     struct Surface *wall;
     struct Surface *ceil;
     struct Surface *floor;

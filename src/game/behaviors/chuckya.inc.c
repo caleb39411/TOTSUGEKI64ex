@@ -124,17 +124,31 @@ void chuckya_act_0(void) {
 }
 
 void chuckya_act_1(void) {
+    gMarioStates[0].pos[1] = o->oPosY;
     if (o->oSubAction == 0) {
-        if (cur_obj_init_animation_and_check_if_near_end(0))
+        if (o->oChuckyaUnkFC == 0) {
+            cur_obj_play_sound_2(SOUND_PEACH_DEAR_MARIO);
+        }
+        if (cur_obj_init_animation_and_check_if_near_end(0)) {
             o->oSubAction++;
-        o->oChuckyaUnkFC = random_float() * 30.0f + 10.0f;
+        }
+        o->oTimer = 0;
+        o->oChuckyaUnkFC = 120;
         o->oChuckyaUnk100 = 0;
         o->oForwardVel = 0.0f;
     } else {
         if (o->oSubAction == 1) {
             o->oChuckyaUnk100 += player_performed_grab_escape_action();
             print_debug_bottom_up("%d", o->oChuckyaUnk100);
-            if (o->oChuckyaUnk100 > 10) {
+            if (o->oTimer == 80) {
+                o->oVelY = 140;
+            }
+            /*gCamera->focus[0] = o->oPosX;
+            gCamera->focus[1] = o->oPosY;
+            gCamera->focus[2] = o->oPosZ;*/
+            
+
+            if (o->oChuckyaUnk100 > 50) {
                 o->oChuckyaUnk88 = 3;
                 o->oAction = 3;
                 o->oInteractStatus &= ~(INT_STATUS_GRABBED_MARIO);
@@ -143,6 +157,7 @@ void chuckya_act_1(void) {
                 o->oMoveAngleYaw += INT_STATUS_GRABBED_MARIO;
                 if (o->oChuckyaUnkFC-- < 0)
                     if (check_if_moving_over_floor(50.0f, 150.0f) || o->oChuckyaUnkFC < -16) {
+                        gMarioStates[0].health -= 0x440;
                         o->oSubAction++;
                         ;
                     }
@@ -183,6 +198,7 @@ void chuckya_move(void) {
     cur_obj_move_standard(-30);
     if (o->oInteractStatus & INT_STATUS_GRABBED_MARIO) {
         o->oAction = 1;
+        cur_obj_play_sound_2(SOUND_PEACH_DEAR_MARIO);
         o->oChuckyaUnk88 = 1;
         cur_obj_play_sound_2(SOUND_OBJ_UNKNOWN3);
     }

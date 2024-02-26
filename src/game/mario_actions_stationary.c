@@ -17,6 +17,7 @@
 #include "sound_init.h"
 #include "surface_terrains.h"
 #include "thread6.h"
+#include "game_init.h"
 
 s32 check_common_idle_cancels(struct MarioState *m) {
     mario_drop_held_object(m);
@@ -57,6 +58,9 @@ s32 check_common_idle_cancels(struct MarioState *m) {
         return set_mario_action(m, ACT_START_CROUCHING, 0);
     }
 
+    if ((gPlayer1Controller->buttonDown & L_TRIG) && m->canTotsu == 1 && m->totsuUnlocked == 1) {
+        return set_mario_action(m, ACT_TOTSUGEKI, 0);
+    }
     return 0;
 }
 
@@ -104,6 +108,9 @@ s32 check_common_hold_idle_cancels(struct MarioState *m) {
 }
 
 s32 act_idle(struct MarioState *m) {
+    if (!(gPlayer1Controller->buttonDown & L_TRIG)) {
+        m->canTotsu = 1.0f;
+    }
     if (m->quicksandDepth > 30.0f) {
         return set_mario_action(m, ACT_IN_QUICKSAND, 0);
     }

@@ -14,6 +14,7 @@
 #include "thread6.h"
 #include "pc/configfile.h"
 #include "pc/cheats.h"
+#include "game_init.h"
 
 struct LandingAction {
     s16 numFrames;
@@ -821,6 +822,10 @@ s32 act_walking(struct MarioState *m) {
     if (m->input & INPUT_Z_PRESSED) {
         return set_mario_action(m, ACT_CROUCH_SLIDE, 0);
     }
+    
+    if ((gPlayer1Controller->buttonDown & L_TRIG) && m->canTotsu == 1 && m->totsuUnlocked == 1) {
+        return set_mario_action(m, ACT_TOTSUGEKI, 0);
+    }
 
     m->actionState = 0;
 
@@ -1062,6 +1067,10 @@ s32 act_braking(struct MarioState *m) {
     if (m->input & INPUT_B_PRESSED) {
         return set_mario_action(m, ACT_MOVE_PUNCHING, 0);
     }
+    
+    if ((gPlayer1Controller->buttonDown & L_TRIG) && m->canTotsu == 1 && m->totsuUnlocked == 1) {
+        return set_mario_action(m, ACT_TOTSUGEKI, 0);
+    }
 
     switch (perform_ground_step(m)) {
         case GROUND_STEP_LEFT_GROUND:
@@ -1106,6 +1115,10 @@ s32 act_decelerating(struct MarioState *m) {
 
         if (m->input & INPUT_Z_PRESSED) {
             return set_mario_action(m, ACT_CROUCH_SLIDE, 0);
+        }
+        
+        if ((gPlayer1Controller->buttonDown & L_TRIG) && m->canTotsu == 1 && m->totsuUnlocked == 1) {
+            return set_mario_action(m, ACT_TOTSUGEKI, 0);
         }
     }
 
