@@ -340,10 +340,10 @@ DEFINE_DIALOG(DIALOG_030, 1, 6, 30, 200, _("\
 Hello! The Lakitu Bros.,\n\
 cutting in with a live\n\
 update on May's\n\
-progress. He's about to\n\
+progress. She's about to\n\
 learn a technique for\n\
 sneaking up on enemies.\n\
-The trick is this: He has\n\
+The trick is this: She has\n\
 to walk very slowly in\n\
 order to walk quietly.\n\
 \n\
@@ -411,7 +411,7 @@ castle.\n\
 May has just arrived\n\
 on the scene, and we'll\n\
 be filming the action live\n\
-as he enters the castle\n\
+as she enters the castle\n\
 and pursues the missing\n\
 Power Stars.\n\
 As seasoned cameramen,\n\
