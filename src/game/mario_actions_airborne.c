@@ -4,7 +4,9 @@
 #include "area.h"
 #include "audio/data.h"
 #include "audio/external.h"
+#include "behavior_data.h"
 #include "camera.h"
+#include "engine/behavior_script.h"
 #include "engine/graph_node.h"
 #include "engine/math_util.h"
 #include "game_init.h"
@@ -12,14 +14,13 @@
 #include "level_update.h"
 #include "mario.h"
 #include "mario_step.h"
+#include "object_helpers.h"
 #include "save_file.h"
 #include "thread6.h"
+#include "types.h"
 #ifdef BETTERCAMERA
 #include "bettercamera.h"
 #endif
-#include "behavior_data.h"
-#include "types.h"
-#include "game_init.h"
 
 void play_flip_sounds(struct MarioState *m, s16 frame1, s16 frame2, s16 frame3) {
     s32 animFrame = m->marioObj->header.gfx.unk38.animFrame;
